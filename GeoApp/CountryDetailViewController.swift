@@ -21,6 +21,10 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
     @IBOutlet var currencyLabel: UILabel!
     @IBOutlet var currencyCodeLabel: UILabel!
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var continentBackgroundView: UIView!
+    @IBOutlet var populationGroundView: UIView!
+    @IBOutlet var currencyBackgroundView: UIView!
+    @IBOutlet var contentView: UIView!
     
     var country: Country?
     
@@ -39,6 +43,10 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
             continentLabel.text = continent
             let colorString = country!.colorStringForContinent(continent)
             tableView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+            contentView.backgroundColor = UIColor(colorCode: colorString, alpha: 0.4)
+            continentBackgroundView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+            populationGroundView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+            currencyBackgroundView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
         }
                 
         if let area = country!.area {
