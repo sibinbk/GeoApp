@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Country List View Controller-->
+        <!--Geo-->
         <scene sceneID="3Wg-QG-Jnv">
             <objects>
                 <tableViewController id="erZ-Ye-Pi4" customClass="CountryListViewController" customModule="GeoApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -80,7 +80,7 @@
                             <outlet property="delegate" destination="erZ-Ye-Pi4" id="r6e-H0-b77"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="CTo-YA-2Oz"/>
+                    <navigationItem key="navigationItem" title="Geo" id="CTo-YA-2Oz"/>
                     <connections>
                         <segue destination="qdf-92-v3X" kind="show" identifier="DetailSegue" id="5o0-Pe-NT6"/>
                     </connections>
@@ -311,15 +311,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="bgz-PN-v12">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="300" id="dau-mg-tNm">
-                                        <rect key="frame" x="0.0" y="382" width="600" height="300"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="400" id="dau-mg-tNm">
+                                        <rect key="frame" x="0.0" y="382" width="600" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dau-mg-tNm" id="qSS-Yp-t8b">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ywz-RS-6iI">
-                                                    <rect key="frame" x="8" y="8" width="584" height="284"/>
+                                                    <rect key="frame" x="8" y="8" width="584" height="384"/>
                                                 </mapView>
                                             </subviews>
                                             <constraints>
@@ -370,6 +370,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IXb-bK-GSv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

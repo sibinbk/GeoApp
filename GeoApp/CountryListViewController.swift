@@ -14,11 +14,10 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     private let ReuseIdentifierCell = "CountryListCell"
     private let DetailSegue = "DetailSegue"
     
-    private var countryList: [Country] = []
+//    private var countryList: [Country] = []
+    
     var searchResults = [Country]()
     var resultSearchController: UISearchController!
-    
-//    internal var context: NSManagedObjectContext!
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
@@ -44,6 +43,17 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set custom title view to show title.
+        let customView = UIView(frame: CGRectMake(0, 0, 150, 44))
+        let titleLabel = UILabel(frame: CGRectMake(0, 0, 150, 40))
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.font = UIFont(name: "AvenirNext-Regular", size: 24)
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.textAlignment = NSTextAlignment.Center
+        titleLabel.text = "Geo App"
+        customView.addSubview(titleLabel)
+        self.navigationItem.titleView = customView
         
         // Set Search controller
         self.resultSearchController = UISearchController(searchResultsController: nil)
@@ -200,7 +210,7 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     // MARK: - Navigation method.
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "DetailSegue" {
+        if segue.identifier == DetailSegue {
             if let destination = segue.destinationViewController as? CountryDetailViewController {
                 destination.country = sender as? Country
             }

@@ -26,6 +26,8 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
     @IBOutlet var currencyBackgroundView: UIView!
     @IBOutlet var contentView: UIView!
     
+    var titleLabel: UILabel!
+    
     var country: Country?
     
     internal var regionRadius: CLLocationDistance = 1000000
@@ -39,6 +41,21 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        // Set custom title view to show title.
+        let customView = UIView(frame: CGRectMake(0, 0, 260, 44))
+        let titleLabel = UILabel(frame: CGRectMake(0, 0, 260, 40))
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.font = UIFont(name: "AvenirNext-Regular", size: 24)
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.textAlignment = NSTextAlignment.Center
+        if let countryName = country!.name {
+            titleLabel.text = countryName
+        }
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.5
+        customView.addSubview(titleLabel)
+        self.navigationItem.titleView = customView
+        
         if let continent = country!.continent {
             continentLabel.text = continent
             let colorString = country!.colorStringForContinent(continent)
@@ -50,10 +67,11 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
         }
                 
         if let area = country!.area {
-            // Zoom In map view if area is small.
+            // Zoom In map view if country area small to locate.
             if area.intValue <= 5000 {
                 regionRadius = 100000
             }
+            
             areaLabel.text = area.stringValue + " sq km"
         }
         
