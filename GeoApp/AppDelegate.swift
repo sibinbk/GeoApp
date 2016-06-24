@@ -185,7 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 countryItem.name = item.name
                 countryItem.code = item.code
                 countryItem.continent = item.continent
-                countryItem.populaton = item.population
+                countryItem.population = item.population
                 countryItem.area = item.area
                 countryItem.coastLine = item.coastLine
                 countryItem.currency = item.currency

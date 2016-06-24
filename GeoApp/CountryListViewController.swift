@@ -206,6 +206,48 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
         
         tableView.reloadData()
     }
+    
+    // MARK: - Sort Action.
+    
+    @IBAction func sortList(sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "Sort List By", message: nil, preferredStyle: .ActionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Name", style: .Default, handler: { (action) -> Void in
+            self.reloadSortedList(NSSortDescriptor(key: "name", ascending: true))
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Population", style: .Default, handler: { (action) -> Void in
+            self.reloadSortedList(NSSortDescriptor(key: "population", ascending: false))
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Life Expectancy", style: .Default, handler: { (action) -> Void in
+            self.reloadSortedList(NSSortDescriptor(key: "lifeExpectancy", ascending: false))
+        }))
+
+        
+        actionSheet.addAction(UIAlertAction(title: "Area", style: .Default, handler: { (action) -> Void in
+            self.reloadSortedList(NSSortDescriptor(key: "area", ascending: false))
+        }))
+        
+        presentViewController(actionSheet, animated: true, completion: nil)
+    }
+
+    // MARK: - Reload for sorting
+    
+    func reloadSortedList(sortDescriptor: NSSortDescriptor? = nil) {
+        // Update fectched results controller's sort descriptor with new selection criteria.
+        fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor!]
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Error while fetching list")
+        }
+        
+        tableView.reloadData()
+    }
 
     // MARK: - Navigation method.
     

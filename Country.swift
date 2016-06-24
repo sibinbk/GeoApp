@@ -2,18 +2,17 @@
 //  Country.swift
 //  GeoApp
 //
-//  Created by Sibin Baby on 24/06/2016.
+//  Created by Sibin Baby on 25/06/2016.
 //  Copyright © 2016 SibinBaby. All rights reserved.
 //
 
 import Foundation
 import CoreData
-import UIKit
 
 
 class Country: NSManagedObject {
 
-    // Returns color string  for each continent.
+    // Returns a color string  for each continent.
     
     func colorStringForContinent(continent: String) -> String {
         var colorString: String
@@ -52,4 +51,6 @@ class Country: NSManagedObject {
         
         return colorString
     }
+
+
 }

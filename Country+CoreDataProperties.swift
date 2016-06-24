@@ -2,7 +2,7 @@
 //  Country+CoreDataProperties.swift
 //  GeoApp
 //
-//  Created by Sibin Baby on 24/06/2016.
+//  Created by Sibin Baby on 25/06/2016.
 //  Copyright © 2016 SibinBaby. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,7 +17,7 @@ extension Country {
     @NSManaged var name: String?
     @NSManaged var code: String?
     @NSManaged var continent: String?
-    @NSManaged var populaton: NSNumber?
+    @NSManaged var population: NSNumber?
     @NSManaged var area: NSNumber?
     @NSManaged var coastLine: NSNumber?
     @NSManaged var currency: String?

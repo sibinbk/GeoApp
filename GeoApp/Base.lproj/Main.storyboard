@@ -80,7 +80,13 @@
                             <outlet property="delegate" destination="erZ-Ye-Pi4" id="r6e-H0-b77"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Geo" id="CTo-YA-2Oz"/>
+                    <navigationItem key="navigationItem" title="Geo" id="CTo-YA-2Oz">
+                        <barButtonItem key="rightBarButtonItem" image="Sort" id="zhx-vq-97p">
+                            <connections>
+                                <action selector="sortList:" destination="erZ-Ye-Pi4" id="Qsb-Aj-fKL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="qdf-92-v3X" kind="show" identifier="DetailSegue" id="5o0-Pe-NT6"/>
                     </connections>
@@ -93,7 +99,7 @@
         <scene sceneID="6OV-OA-Vm4">
             <objects>
                 <tableViewController id="qdf-92-v3X" customClass="CountryDetailViewController" customModule="GeoApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cKF-uf-fHG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cKF-uf-fHG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -387,4 +393,7 @@
             <point key="canvasLocation" x="236" y="-14"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Sort" width="25" height="25"/>
+    </resources>
 </document>
