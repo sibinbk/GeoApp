@@ -9,61 +9,121 @@
 import UIKit
 import CoreData
 
-class CountryListViewController: UITableViewController {
+class CountryListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var fetchedResultController: NSFetchedResultsController!
     private var countryList: [Country] = []
+    
+    internal var context: NSManagedObjectContext!
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "Country")
+        
+        // Add sort descriptors.
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let frc = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        frc.delegate = self
+        
+        return frc
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        // Load country list from database
-        if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext {
+        // Load country list from data base.
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error while fetching data")
             
-            let fetchRequest = NSFetchRequest(entityName: "Country")
-            do {
-                countryList = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Country]
-            } catch {
-                print(error)
-            }
         }
     }
 
     // MARK: - Table view data source method.
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        guard let sectionCount = fetchedResultsController.sections?.count else {
+            return 0
+        }
+        return sectionCount
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countryList.count
+
+        guard let sectionData = fetchedResultsController.sections?[section] else {
+            return 0
+        }
+        return sectionData.numberOfObjects
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CountryListCell", forIndexPath: indexPath)
 
-        cell.textLabel?.text = countryList[indexPath.row].name
+        let country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
 
+        cell.textLabel?.text = country.name
+        
         return cell
     }
     
     // MARK: - Table view delegate method.
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let country: Country
-        country = countryList[indexPath.row] as Country
+
+        let country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
         
         performSegueWithIdentifier("DetailSegue", sender: country)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    // MARK: - Fetched Results Controller Delegate Methods
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch (type) {
+        case .Insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+        case .Delete:
+            if let indexPath = indexPath {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break;
+        case .Update:
+            break;
+        case .Move:
+            if let indexPath = indexPath {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+            }
+            break;
+        }
+    }
+
     // MARK: - Navigation method.
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
