@@ -92,24 +92,6 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
         // Configure Table View Cell
         configureCell(cell, atIndexPath: indexPath)
         
-//        let country: Country
-//        if self.resultSearchController.active {
-//            country = self.searchResults[indexPath.row]
-//        } else {
-//            country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
-//        }
-//
-//        cell.textLabel?.text = country.name
-//        
-//        // Sets Cell backgroud color  and weather icon as per weather condition.
-//        if let continent = country.continent {
-//            let colorString = self.colorStringForContinent(continent)
-//            cell.contentView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
-//        } else {
-//            cell.contentView.backgroundColor = UIColor(colorCode: "34495E", alpha: 1.0)
-//        }
-
-        
         return cell
     }
     
@@ -128,7 +110,7 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
         
         if let continent = country.continent {
             cell.continentNameLabel.text = continent
-            let colorString = self.colorStringForContinent(continent)
+            let colorString = country.colorStringForContinent(continent)
             cell.countryCodeView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
         }
         
@@ -224,52 +206,6 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
             }
         }
     }
-    
-    // MARK: - Helper methods.
-    
-    func colorStringForContinent(continent: String) -> String {
-        var colorString: String
-        
-        switch continent {
-        case "Asia":
-            // Orange
-            colorString = "3498db"
-            break
-        case "Africa":
-            // Belize Hole (Dark Blue)
-            colorString = "1ABC9C"
-            break
-        case "Europe":
-            // Peter Rive (Light Blue)
-            colorString = "9b59b6"
-            break
-        case "North America":
-            // Dark blue Material color
-            colorString = "f39c12"
-            break
-        case "South America":
-            colorString = "e74c3c"
-            break
-        case "Central America":
-            // Dark gray
-            colorString = "d35400"
-            break
-        case "Antartica":
-            colorString = "2980B9"
-            break
-        case "Oceania":
-            colorString = "7F8C8D"
-            break
-        case "Australia":
-            colorString = "CD9D77"
-            break
-        default:
-            // Wet Asphalt
-            colorString = "34495E"
-        }
-        
-        return colorString
-    }
 }
 
 // HEX string to UIColor conversion extension
@@ -288,4 +224,3 @@ extension UIColor {
         self.init(red: r, green: g, blue: b, alpha: CGFloat(alpha))
     }
 }
-

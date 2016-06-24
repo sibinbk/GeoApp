@@ -12,13 +12,19 @@ import MapKit
 class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
 
     @IBOutlet var continentLabel: UILabel!
+    @IBOutlet var areaLabel: UILabel!
+    @IBOutlet var coastLineLabel: UILabel!
     @IBOutlet var populationLabel: UILabel!
-    @IBOutlet var latitudeLabel: UILabel!
+    @IBOutlet var birthRateLabel: UILabel!
+    @IBOutlet var deathRateLabel: UILabel!
+    @IBOutlet var lifeExpectancyLabel: UILabel!
+    @IBOutlet var currencyLabel: UILabel!
+    @IBOutlet var currencyCodeLabel: UILabel!
     @IBOutlet var mapView: MKMapView!
     
     var country: Country?
     
-    private let regionRadius: CLLocationDistance = 1000000
+    internal var regionRadius: CLLocationDistance = 1000000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +37,46 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
         
         if let continent = country!.continent {
             continentLabel.text = continent
+            let colorString = country!.colorStringForContinent(continent)
+            tableView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+        }
+                
+        if let area = country!.area {
+            // Zoom In map view if area is small.
+            if area.intValue <= 5000 {
+                regionRadius = 100000
+            }
+            areaLabel.text = area.stringValue + " sq km"
+        }
+        
+        if let coastLine = country!.coastLine {
+            coastLineLabel.text = coastLine.stringValue + " km"
         }
         
         if let population = country!.populaton {
             populationLabel.text = population.stringValue
         }
         
-        if let latitude = country!.latitude {
-            latitudeLabel.text = latitude.stringValue
+        if let birthRate = country!.birthRate {
+            birthRateLabel.text = birthRate.stringValue + " %"
+        }
+
+        if let deathRate = country!.deathRate {
+            deathRateLabel.text = deathRate.stringValue  + " %"
+        }
+
+        if let lifeExpectancy = country!.lifeExpectancy {
+            lifeExpectancyLabel.text = lifeExpectancy.stringValue
         }
         
+        if let currency = country!.currency {
+            currencyLabel.text = currency
+        }
+        
+        if let currencyCode = country!.currencyCode {
+            currencyCodeLabel.text = currencyCode
+        }
+
         let latitude = Double(country!.latitude!)
         let longitude = Double(country!.longitude!)
         centerMapOnLocation(latitude: latitude, longitude: longitude)
@@ -56,3 +92,5 @@ class CountryDetailViewController: UITableViewController, MKMapViewDelegate {
         mapView.addAnnotation(objectAnnotation)
     }
 }
+
+
