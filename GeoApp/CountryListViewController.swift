@@ -233,7 +233,7 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
         switch continent {
         case "Asia":
             // Orange
-            colorString = "F39C12"
+            colorString = "3498db"
             break
         case "Africa":
             // Belize Hole (Dark Blue)
@@ -241,22 +241,20 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
             break
         case "Europe":
             // Peter Rive (Light Blue)
-            colorString = "3498DB"
+            colorString = "9b59b6"
             break
         case "North America":
             // Dark blue Material color
-            colorString = "01579B"
+            colorString = "f39c12"
             break
         case "South America":
-            // Light Gray
-            colorString = "5C5470"
+            colorString = "e74c3c"
             break
         case "Central America":
             // Dark gray
-            colorString = "352F44"
+            colorString = "d35400"
             break
         case "Antartica":
-            // Turquoise
             colorString = "2980B9"
             break
         case "Oceania":
