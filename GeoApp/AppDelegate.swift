@@ -11,12 +11,15 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Preload the data.
+        preloadData()
+        
         return true
     }
 
@@ -106,6 +109,111 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    // MARK: - CSV Parsing Methods
+    
+    func parseCSV (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [CountryItem]? {
+        
+        // Load the CSV file and parse it
+        
+        let delimiter = ","
+        
+        var countryItems:[CountryItem]?
+        
+        do {
+            let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
+            print(content)
+            countryItems = []
+            let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
+            
+            for line in lines {
+                var values:[String] = []
+                if line != "" {
+                    values = line.componentsSeparatedByString(delimiter)
+                    
+                    // Convert values into CountryItem and add it to the items array
+                    let item = CountryItem(
+                        name: values[0],
+                        code: values[1],
+                        continent: values[2],
+                        population: (values[3] as NSString).integerValue,
+                        area: (values[4] as NSString).integerValue,
+                        coastLine: (values[5] as NSString).integerValue,
+                        currency: values[6],
+                        currencyCode: values[7],
+                        birthRate: (values[8] as NSString).floatValue,
+                        deathRate: (values[9] as NSString).floatValue,
+                        lifeExpectancy: (values[10] as NSString).floatValue,
+                        latitude: (values[11] as NSString).doubleValue,
+                        longitude: (values[12] as NSString).doubleValue
+                    )
+                    countryItems?.append(item)
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        // Remove the header from the array.
+        countryItems?.removeAtIndex(0)
+        
+        return countryItems
+    }
+    
+    func preloadData () {
+        
+        // Load the data file. Just return if it can't be loaded.
+        guard let contentsOfURL = NSBundle.mainBundle().URLForResource("data", withExtension: "csv") else {
+            return
+        }
+        
+//        guard let contentsOfURL = NSURL(string: "https://docs.google.com/uc?authuser=0&id=0B0Wb9VHlKucjSG90ak50QjJ0N00&export=download") else {
+//            return
+//        }
+        
+        // Remove all the country items before preloading
+        removeData()
+        
+        if let items = parseCSV(contentsOfURL, encoding: NSMacOSRomanStringEncoding) {
+            // Preload the Country list into CoreData
+            for item in items {
+                let countryItem = NSEntityDescription.insertNewObjectForEntityForName("Country", inManagedObjectContext: managedObjectContext) as! Country
+                countryItem.name = item.name
+                countryItem.code = item.code
+                countryItem.continent = item.continent
+                countryItem.populaton = item.population
+                countryItem.area = item.area
+                countryItem.coastLine = item.coastLine
+                countryItem.currency = item.currency
+                countryItem.currencyCode = item.currencyCode
+                countryItem.birthRate = item.birthRate
+                countryItem.deathRate = item.deathRate
+                countryItem.lifeExpectancy = item.lifeExpectancy
+                countryItem.latitude = item.latitude
+                countryItem.longitude = item.longitude
+                
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func removeData () {
+        // Remove the existing items
+        let fetchRequest = NSFetchRequest(entityName: "Country")
+        
+        do {
+            let countryItems = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Country]
+            for countryItem in countryItems {
+                managedObjectContext.deleteObject(countryItem)
+            }
+        } catch {
+            print(error)
+        }
+    }
 }
 

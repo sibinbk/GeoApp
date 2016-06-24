@@ -13,6 +13,10 @@
 		C32AF3361D1C322F00D22543 /* GeoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3341D1C322F00D22543 /* GeoApp.xcdatamodeld */; };
 		C32AF3381D1C322F00D22543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3371D1C322F00D22543 /* Assets.xcassets */; };
 		C32AF33B1D1C322F00D22543 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3391D1C322F00D22543 /* LaunchScreen.storyboard */; };
+		C32AF3501D1CD70400D22543 /* CountryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF34F1D1CD70400D22543 /* CountryItem.swift */; };
+		C32AF3551D1CD97000D22543 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3531D1CD97000D22543 /* Country+CoreDataProperties.swift */; };
+		C32AF3561D1CD97000D22543 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3541D1CD97000D22543 /* Country.swift */; };
+		C32AF3581D1CE70D00D22543 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3571D1CE70D00D22543 /* data.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		C32AF3371D1C322F00D22543 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C32AF33A1D1C322F00D22543 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C32AF33C1D1C322F00D22543 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C32AF34F1D1CD70400D22543 /* CountryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryItem.swift; sourceTree = "<group>"; };
+		C32AF3531D1CD97000D22543 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Country+CoreDataProperties.swift"; path = "../Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C32AF3541D1CD97000D22543 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = ../Country.swift; sourceTree = "<group>"; };
+		C32AF3571D1CE70D00D22543 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,51 @@
 		C32AF32C1D1C322F00D22543 /* GeoApp */ = {
 			isa = PBXGroup;
 			children = (
-				C32AF32D1D1C322F00D22543 /* AppDelegate.swift */,
-				C32AF32F1D1C322F00D22543 /* ViewController.swift */,
+				C32AF34D1D1CD4DA00D22543 /* Features */,
+				C32AF34A1D1CD46500D22543 /* Model */,
+				C32AF34B1D1CD48600D22543 /* User Interface */,
+				C32AF34C1D1CD4B800D22543 /* Supporting Files */,
+			);
+			path = GeoApp;
+			sourceTree = "<group>";
+		};
+		C32AF34A1D1CD46500D22543 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C32AF3531D1CD97000D22543 /* Country+CoreDataProperties.swift */,
+				C32AF3541D1CD97000D22543 /* Country.swift */,
+				C32AF34F1D1CD70400D22543 /* CountryItem.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C32AF34B1D1CD48600D22543 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
 				C32AF3311D1C322F00D22543 /* Main.storyboard */,
 				C32AF3371D1C322F00D22543 /* Assets.xcassets */,
 				C32AF3391D1C322F00D22543 /* LaunchScreen.storyboard */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		C32AF34C1D1CD4B800D22543 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C32AF3571D1CE70D00D22543 /* data.csv */,
 				C32AF33C1D1C322F00D22543 /* Info.plist */,
 				C32AF3341D1C322F00D22543 /* GeoApp.xcdatamodeld */,
 			);
-			path = GeoApp;
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C32AF34D1D1CD4DA00D22543 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				C32AF32D1D1C322F00D22543 /* AppDelegate.swift */,
+				C32AF32F1D1C322F00D22543 /* ViewController.swift */,
+			);
+			name = Features;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +169,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32AF3581D1CE70D00D22543 /* data.csv in Resources */,
 				C32AF33B1D1C322F00D22543 /* LaunchScreen.storyboard in Resources */,
 				C32AF3381D1C322F00D22543 /* Assets.xcassets in Resources */,
 				C32AF3331D1C322F00D22543 /* Main.storyboard in Resources */,
@@ -138,9 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32AF3551D1CD97000D22543 /* Country+CoreDataProperties.swift in Sources */,
 				C32AF3361D1C322F00D22543 /* GeoApp.xcdatamodeld in Sources */,
 				C32AF3301D1C322F00D22543 /* ViewController.swift in Sources */,
 				C32AF32E1D1C322F00D22543 /* AppDelegate.swift in Sources */,
+				C32AF3561D1CD97000D22543 /* Country.swift in Sources */,
+				C32AF3501D1CD70400D22543 /* CountryItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +251,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -243,7 +291,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
