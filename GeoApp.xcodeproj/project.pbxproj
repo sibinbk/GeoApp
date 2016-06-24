@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C32AF32E1D1C322F00D22543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF32D1D1C322F00D22543 /* AppDelegate.swift */; };
-		C32AF3301D1C322F00D22543 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF32F1D1C322F00D22543 /* ViewController.swift */; };
 		C32AF3331D1C322F00D22543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3311D1C322F00D22543 /* Main.storyboard */; };
 		C32AF3361D1C322F00D22543 /* GeoApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3341D1C322F00D22543 /* GeoApp.xcdatamodeld */; };
 		C32AF3381D1C322F00D22543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3371D1C322F00D22543 /* Assets.xcassets */; };
@@ -17,12 +16,14 @@
 		C32AF3551D1CD97000D22543 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3531D1CD97000D22543 /* Country+CoreDataProperties.swift */; };
 		C32AF3561D1CD97000D22543 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3541D1CD97000D22543 /* Country.swift */; };
 		C32AF3581D1CE70D00D22543 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = C32AF3571D1CE70D00D22543 /* data.csv */; };
+		C32AF35A1D1CFE1900D22543 /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF3591D1CFE1900D22543 /* CountryListViewController.swift */; };
+		C32AF35C1D1CFE3200D22543 /* CountryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF35B1D1CFE3200D22543 /* CountryDetailViewController.swift */; };
+		C32AF35E1D1CFE9000D22543 /* CountryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32AF35D1D1CFE9000D22543 /* CountryListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C32AF32A1D1C322F00D22543 /* GeoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32AF32D1D1C322F00D22543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C32AF32F1D1C322F00D22543 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C32AF3321D1C322F00D22543 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C32AF3351D1C322F00D22543 /* GeoApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GeoApp.xcdatamodel; sourceTree = "<group>"; };
 		C32AF3371D1C322F00D22543 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +33,9 @@
 		C32AF3531D1CD97000D22543 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Country+CoreDataProperties.swift"; path = "../Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C32AF3541D1CD97000D22543 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Country.swift; path = ../Country.swift; sourceTree = "<group>"; };
 		C32AF3571D1CE70D00D22543 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
+		C32AF3591D1CFE1900D22543 /* CountryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
+		C32AF35B1D1CFE3200D22543 /* CountryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryDetailViewController.swift; sourceTree = "<group>"; };
+		C32AF35D1D1CFE9000D22543 /* CountryListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				C32AF32D1D1C322F00D22543 /* AppDelegate.swift */,
-				C32AF32F1D1C322F00D22543 /* ViewController.swift */,
+				C32AF3591D1CFE1900D22543 /* CountryListViewController.swift */,
+				C32AF35B1D1CFE3200D22543 /* CountryDetailViewController.swift */,
+				C32AF35D1D1CFE9000D22543 /* CountryListTableViewCell.swift */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -184,8 +190,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C32AF3551D1CD97000D22543 /* Country+CoreDataProperties.swift in Sources */,
+				C32AF35A1D1CFE1900D22543 /* CountryListViewController.swift in Sources */,
 				C32AF3361D1C322F00D22543 /* GeoApp.xcdatamodeld in Sources */,
-				C32AF3301D1C322F00D22543 /* ViewController.swift in Sources */,
+				C32AF35C1D1CFE3200D22543 /* CountryDetailViewController.swift in Sources */,
+				C32AF35E1D1CFE9000D22543 /* CountryListTableViewCell.swift in Sources */,
 				C32AF32E1D1C322F00D22543 /* AppDelegate.swift in Sources */,
 				C32AF3561D1CD97000D22543 /* Country.swift in Sources */,
 				C32AF3501D1CD70400D22543 /* CountryItem.swift in Sources */,

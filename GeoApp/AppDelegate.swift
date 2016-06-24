@@ -122,7 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
-            print(content)
+            
+            // List content of data file for debugging.
+ //           print(content)
+            
             countryItems = []
             let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
             
