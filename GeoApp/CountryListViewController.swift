@@ -11,6 +11,9 @@ import CoreData
 
 class CountryListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
+    private let ReuseIdentifierCell = "CountryListCell"
+    private let DetailSegue = "DetailSegue"
+    
     private var countryList: [Country] = []
     var searchResults = [Country]()
     var resultSearchController: UISearchController!
@@ -84,18 +87,54 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CountryListCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(ReuseIdentifierCell, forIndexPath: indexPath) as! CountryListTableViewCell
 
+        // Configure Table View Cell
+        configureCell(cell, atIndexPath: indexPath)
+        
+//        let country: Country
+//        if self.resultSearchController.active {
+//            country = self.searchResults[indexPath.row]
+//        } else {
+//            country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
+//        }
+//
+//        cell.textLabel?.text = country.name
+//        
+//        // Sets Cell backgroud color  and weather icon as per weather condition.
+//        if let continent = country.continent {
+//            let colorString = self.colorStringForContinent(continent)
+//            cell.contentView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+//        } else {
+//            cell.contentView.backgroundColor = UIColor(colorCode: "34495E", alpha: 1.0)
+//        }
+
+        
+        return cell
+    }
+    
+    func configureCell(cell: CountryListTableViewCell, atIndexPath indexPath: NSIndexPath) {
+        
         let country: Country
         if self.resultSearchController.active {
             country = self.searchResults[indexPath.row]
         } else {
             country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
         }
-
-        cell.textLabel?.text = country.name
         
-        return cell
+        if let name = country.name {
+            cell.countryNameLabel.text = name
+        }
+        
+        if let continent = country.continent {
+            cell.continentNameLabel.text = continent
+            let colorString = self.colorStringForContinent(continent)
+            cell.countryCodeView.backgroundColor = UIColor(colorCode: colorString, alpha: 1.0)
+        }
+        
+        if let countryCode = country.code {
+            cell.countryCodeLabel.text = countryCode
+        }
     }
     
     // MARK: - Table view delegate method.
@@ -109,7 +148,7 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
             country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
         }
         
-        performSegueWithIdentifier("DetailSegue", sender: country)
+        performSegueWithIdentifier(DetailSegue, sender: country)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -170,7 +209,7 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
                 searchResults = results
             }
         } catch {
-            fatalError("Error while fetching venue list")
+            fatalError("Error while fetching country list")
         }
         
         tableView.reloadData()
@@ -185,4 +224,70 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
             }
         }
     }
+    
+    // MARK: - Helper methods.
+    
+    func colorStringForContinent(continent: String) -> String {
+        var colorString: String
+        
+        switch continent {
+        case "Asia":
+            // Orange
+            colorString = "F39C12"
+            break
+        case "Africa":
+            // Belize Hole (Dark Blue)
+            colorString = "1ABC9C"
+            break
+        case "Europe":
+            // Peter Rive (Light Blue)
+            colorString = "3498DB"
+            break
+        case "North America":
+            // Dark blue Material color
+            colorString = "01579B"
+            break
+        case "South America":
+            // Light Gray
+            colorString = "5C5470"
+            break
+        case "Central America":
+            // Dark gray
+            colorString = "352F44"
+            break
+        case "Antartica":
+            // Turquoise
+            colorString = "2980B9"
+            break
+        case "Oceania":
+            colorString = "7F8C8D"
+            break
+        case "Australia":
+            colorString = "CD9D77"
+            break
+        default:
+            // Wet Asphalt
+            colorString = "34495E"
+        }
+        
+        return colorString
+    }
 }
+
+// HEX string to UIColor conversion extension
+
+extension UIColor {
+    convenience init(colorCode: String, alpha: Float = 1.0){
+        let scanner = NSScanner(string:colorCode)
+        var color:UInt32 = 0;
+        scanner.scanHexInt(&color)
+        
+        let mask = 0x000000FF
+        let r = CGFloat(Float(Int(color >> 16) & mask)/255.0)
+        let g = CGFloat(Float(Int(color >> 8) & mask)/255.0)
+        let b = CGFloat(Float(Int(color) & mask)/255.0)
+        
+        self.init(red: r, green: g, blue: b, alpha: CGFloat(alpha))
+    }
+}
+
