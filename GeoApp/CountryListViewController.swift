@@ -48,8 +48,11 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
         self.resultSearchController.dimsBackgroundDuringPresentation = false
         self.resultSearchController.searchBar.sizeToFit()
         self.tableView.tableHeaderView = self.resultSearchController.searchBar
-        // Load country list from data base.
         
+        // Determines where to present search controller.
+        self.definesPresentationContext = true
+        
+        // Load country list from data base.
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -83,7 +86,12 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CountryListCell", forIndexPath: indexPath)
 
-        let country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
+        let country: Country
+        if self.resultSearchController.active {
+            country = self.searchResults[indexPath.row]
+        } else {
+            country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
+        }
 
         cell.textLabel?.text = country.name
         
@@ -94,7 +102,12 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        let country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
+        let country: Country
+        if self.resultSearchController.active {
+            country = self.searchResults[indexPath.row]
+        } else {
+            country = fetchedResultsController.objectAtIndexPath(indexPath) as! Country
+        }
         
         performSegueWithIdentifier("DetailSegue", sender: country)
         
