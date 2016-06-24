@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class CountryListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class CountryListViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     private var countryList: [Country] = []
+    var searchResults = [Country]()
+    var resultSearchController: UISearchController!
     
-    internal var context: NSManagedObjectContext!
+//    internal var context: NSManagedObjectContext!
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
@@ -40,6 +42,12 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set Search controller
+        self.resultSearchController = UISearchController(searchResultsController: nil)
+        self.resultSearchController.searchResultsUpdater = self
+        self.resultSearchController.dimsBackgroundDuringPresentation = false
+        self.resultSearchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = self.resultSearchController.searchBar
         // Load country list from data base.
         
         do {
@@ -53,18 +61,23 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     // MARK: - Table view data source method.
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        guard let sectionCount = fetchedResultsController.sections?.count else {
-            return 0
+        if let sectionCount = fetchedResultsController.sections?.count {
+            return sectionCount
         }
-        return sectionCount
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        guard let sectionData = fetchedResultsController.sections?[section] else {
-            return 0
+        if self.resultSearchController.active {
+            return self.searchResults.count
+        } else {
+            if let sections = fetchedResultsController.sections {
+                let sectionInfo = sections[section]
+                return sectionInfo.numberOfObjects
+            }
         }
-        return sectionData.numberOfObjects
+        return 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -122,6 +135,32 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
             }
             break;
         }
+    }
+
+    // MARK: - Search Results Update method
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController)
+    {
+        self.searchResults.removeAll(keepCapacity: false)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let context = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "Country")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        
+        let searchPredicate = NSPredicate(format: "name CONTAINS[c] %@", searchController.searchBar.text!)
+        fetchRequest.predicate = searchPredicate
+        
+        do {
+            if let results = try context.executeFetchRequest(fetchRequest) as? [Country] {
+                searchResults = results
+            }
+        } catch {
+            fatalError("Error while fetching venue list")
+        }
+        
+        tableView.reloadData()
     }
 
     // MARK: - Navigation method.
