@@ -17,8 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // Preload the data.
-        preloadData()
+        // Preload the data and set a flag to avoid redownload.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let isPreloaded = defaults.boolForKey("isPreloaded")
+        if !isPreloaded {
+             preloadData()
+            defaults.setBool(true, forKey: "isPreloaded")
+        }
         
         return true
     }
@@ -123,9 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
             
-            // List content of data file for debugging.
- //           print(content)
-            
             countryItems = []
             let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
             
@@ -170,7 +172,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let contentsOfURL = NSBundle.mainBundle().URLForResource("data", withExtension: "csv") else {
             return
         }
-        
+
+        // Use code below instead, for direct download from internet.
 //        guard let contentsOfURL = NSURL(string: "https://docs.google.com/uc?authuser=0&id=0B0Wb9VHlKucjSG90ak50QjJ0N00&export=download") else {
 //            return
 //        }
@@ -199,6 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 do {
                     try managedObjectContext.save()
                 } catch {
+                    print("Error in loading")
                     print(error)
                 }
             }

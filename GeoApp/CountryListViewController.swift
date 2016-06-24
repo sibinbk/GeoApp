@@ -14,8 +14,6 @@ class CountryListViewController: UITableViewController, NSFetchedResultsControll
     private let ReuseIdentifierCell = "CountryListCell"
     private let DetailSegue = "DetailSegue"
     
-//    private var countryList: [Country] = []
-    
     var searchResults = [Country]()
     var resultSearchController: UISearchController!
     
