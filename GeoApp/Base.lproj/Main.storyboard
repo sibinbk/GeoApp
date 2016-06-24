@@ -81,7 +81,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="HEU-2p-5mA" style="IBUITableViewCellStyleDefault" id="4HW-gN-Bc9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="HEU-2p-5mA" rowHeight="44" style="IBUITableViewCellStyleDefault" id="4HW-gN-Bc9">
                                         <rect key="frame" x="0.0" y="187" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4HW-gN-Bc9" id="Fzn-9H-KSl">
@@ -100,6 +100,29 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Map" id="bgz-PN-v12">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="300" id="dau-mg-tNm">
+                                        <rect key="frame" x="0.0" y="281" width="600" height="300"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dau-mg-tNm" id="qSS-Yp-t8b">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ywz-RS-6iI">
+                                                    <rect key="frame" x="8" y="8" width="584" height="283.5"/>
+                                                </mapView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ywz-RS-6iI" firstAttribute="top" secondItem="qSS-Yp-t8b" secondAttribute="top" constant="8" id="D3g-El-6gN"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ywz-RS-6iI" secondAttribute="trailing" constant="8" id="JOk-TS-lte"/>
+                                                <constraint firstItem="Ywz-RS-6iI" firstAttribute="leading" secondItem="qSS-Yp-t8b" secondAttribute="leading" constant="8" id="Wql-g0-MbO"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ywz-RS-6iI" secondAttribute="bottom" constant="8" id="ozD-66-D3A"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="qdf-92-v3X" id="PWn-Bu-k7W"/>
@@ -109,6 +132,7 @@
                     <connections>
                         <outlet property="continentLabel" destination="bjH-E0-nsf" id="FZu-8b-wVh"/>
                         <outlet property="latitudeLabel" destination="HEU-2p-5mA" id="1jv-FZ-18j"/>
+                        <outlet property="mapView" destination="Ywz-RS-6iI" id="XWi-PT-Bbk"/>
                         <outlet property="populationLabel" destination="fs5-Ee-xSn" id="uZL-4N-BTc"/>
                     </connections>
                 </tableViewController>
